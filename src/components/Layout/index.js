@@ -1,6 +1,6 @@
 import s from './style.module.css';
 
-const Layout = ({id, title, urlBg, colorBg, children}) => {
+const Layout = ({id, title, urlBg, colorBg, colorTitle = 'black', children}) => {
     const style = {
         background: urlBg ? `url(${urlBg})` : (colorBg ? colorBg : null)
     }
@@ -9,14 +9,16 @@ const Layout = ({id, title, urlBg, colorBg, children}) => {
             <div className={s.wrapper} style={style}>
                 <article>
                     {title && (
-                        <div className={s.title}>
+                        <div className={s.title} style={{color: colorTitle}}>
                             <h3>{title}</h3>
                             <span className={s.separator}/>
                         </div>
                     )}
-                    <div className={[s.desc, s.full].join(' ')}>
-                        {children}
-                    </div>
+                    {children && (
+                        <div className={[s.desc, s.full].join(' ')}>
+                            {children}
+                        </div>
+                    )}
                 </article>
             </div>
         </section>
