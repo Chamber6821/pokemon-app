@@ -1,7 +1,10 @@
 import './App.css';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Layout from './components/Layout';
+import PokemonCard from "./components/PokemonCard";
+
 import Pikachu from './assets/img/bg1.jpg';
 import Bg3 from './assets/img/bg3.jpg';
 import PokemonData from './assets/json/pokemonData';
@@ -9,15 +12,36 @@ import PokemonData from './assets/json/pokemonData';
 function App() {
     return (
         <>
-            <Header title="Pokemon App" desc="Created with React"/>
-            <Layout title="Pikachu" urlBg={Pikachu}>
+            <Header title="Pokemon Fight" desc="Created with React"/>
+            <Layout title="Rules" urlBg={Pikachu}>
                 <p>⚠Бьётся током</p>
+                <p>
+                    In the game two players face off against one another, one side playing as "blue", the other as "red"
+                    on a 3x3 grid. Each player has five cards in a hand and the aim is to capture the opponent's cards
+                    by turning them into the player's own color of red or blue.
+                </p>
+                <p>
+                    To win, a majority of the total ten cards played (including the one card that is not placed on the
+                    board) must be of the player's card color. To do this, the player must capture cards by placing a
+                    card adjacent to an opponent's card whereupon the 'ranks' of the sides where the two cards touch
+                    will be compared. If the rank of the opponent's card is higher than the player's card, the player's
+                    card will be captured and turned into the opponent's color. If the player's rank is higher, the
+                    opponent's card will be captured and changed into the player's color instead.
+                </p>
             </Layout>
-            <Layout title="Замечательный цвет" colorBg="white">
-                Ну мне так кажется
-            </Layout>
-            <Layout urlBg={Bg3}>
-                *шелест травы*
+            <Layout title="Cards" colorTitle="white" colorBg="#404040">
+                <div className="flex">
+                    {
+                        PokemonData.map((item) => <PokemonCard
+                            key={item.id}
+                            id={item.id}
+                            name={item.name}
+                            type={item.type}
+                            img={item.img}
+                            values={item.values}
+                        />)
+                    }
+                </div>
             </Layout>
             <Footer/>
         </>
