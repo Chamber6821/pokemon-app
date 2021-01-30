@@ -2,7 +2,7 @@ import s from './style.module.css';
 
 const Layout = ({id, title, desc, urlBg, colorBg}) => {
     const style = {
-        background: urlBg ? `url(${urlBg})` : colorBg ? colorBg : null
+        background: urlBg ? `url(${urlBg})` : (colorBg ? colorBg : null)
     }
     return (
         <section className={s.root} id={id}>
