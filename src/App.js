@@ -9,9 +9,15 @@ function App() {
     return (
         <>
             <Header title="Pokemon App" desc="Created with React"/>
-            <Layout title="Pikachu" desc="⚠Бьётся током" urlBg={Pikachu}/>
-            <Layout title="Замечательный цвет" desc="Ну мне так кажется" colorBg="white"/>
-            <Layout desc="*шелест травы*" urlBg={Bg3}/>
+            <Layout title="Pikachu" urlBg={Pikachu}>
+                <p>⚠Бьётся током</p>
+            </Layout>
+            <Layout title="Замечательный цвет" colorBg="white">
+                Ну мне так кажется
+            </Layout>
+            <Layout urlBg={Bg3}>
+                *шелест травы*
+            </Layout>
             <Footer/>
         </>
     );
