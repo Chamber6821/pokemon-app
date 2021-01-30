@@ -2,9 +2,9 @@
 .root {
     font-size: 1.4rem;
     position: relative;
+    background: #fafafa fixed;
     clip-path: polygon(0 0, 20% 5%, 100% 0, 100% 100%, 80% 95%, 0 100%);
     z-index: 5;
-    background: #fafafa fixed;
 }
 
 .root .wrapper {
@@ -32,7 +32,7 @@
 }
 
 .root .separator {
-    background: #f300b4;
+    background: #a5599b;
     width: 150px;
     height: 2px;
     margin: 1rem 0;
