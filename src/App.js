@@ -1,9 +1,10 @@
 import './App.css';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Layout from "./components/Layout";
-import Pikachu from "./assets/img/bg1.jpg";
-import Bg3 from "./assets/img/bg3.jpg";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Layout from './components/Layout';
+import Pikachu from './assets/img/bg1.jpg';
+import Bg3 from './assets/img/bg3.jpg';
+import PokemonData from './assets/json/pokemonData';
 
 function App() {
     return (
