@@ -195,7 +195,7 @@
         }
     }
 
-    .menuContainer > .overlay {
+    .menu-container > .overlay {
         animation: overlay-slide-out 300ms forwards;
     }
 
