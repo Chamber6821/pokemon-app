@@ -1,6 +1,7 @@
-import Header from '../../components/Header';
+import Header from 'components/Header';
 
 import s from './style.module.css';
+
 
 const GamePage = ({onGoToPage}) => {
     const handleGoToPage = (page) => () => {

@@ -3,7 +3,8 @@ import cn from 'classnames';
 
 import s from './style.module.css';
 
-import cardBackSide from '../../assets/img/card-back-side.jpg';
+import cardBackSide from 'assets/img/card-back-side.jpg';
+
 
 const PokemonCard = ({id, name, type, img, values}) => {
     const [isActive, setActive] = useState(false);

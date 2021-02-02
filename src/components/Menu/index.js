@@ -1,12 +1,9 @@
-import {useState} from 'react';
-import cn         from 'classnames';
+import cn from 'classnames';
 
 import s from './style.module.css';
 
 
 const Menu = () => {
-    console.log('New menu');
-
     return (
         <div className={cn(s.menuContainer, s.active)}>
             <div className={s.overlay}/>

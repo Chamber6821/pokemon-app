@@ -1,13 +1,13 @@
-import Header      from '../../components/Header';
-import Footer      from '../../components/Footer';
-import Layout      from '../../components/Layout';
-import PokemonCard from '../../components/PokemonCard';
-import MenuHeader  from '../../components/MenuHeader';
+import Header      from 'components/Header';
+import Footer      from 'components/Footer';
+import Layout      from 'components/Layout';
+import PokemonCard from 'components/PokemonCard';
+import MenuHeader  from 'components/MenuHeader';
 
 import s from './style.module.css';
 
-import Pikachu     from '../../assets/img/bg1.jpg';
-import PokemonData from '../../assets/json/pokemonData';
+import Pikachu     from 'assets/img/bg1.jpg';
+import PokemonData from 'assets/json/pokemonData';
 
 
 const HomePage = ({onGoToPage}) => {
@@ -17,7 +17,7 @@ const HomePage = ({onGoToPage}) => {
 
     return (
         <>
-            <MenuHeader/>
+            {true && <MenuHeader/>}
             <Header title="Pokemon Fight" desc="Created with React">
                 <button onClick={handleGoToPage('game')}>
                     Start Game
