@@ -2,6 +2,22 @@ import cn from 'classnames';
 
 import s from './style.module.css';
 
+const menuItems = [
+    {
+        title: 'HOME',
+        to:    '#home'
+    }, {
+        title: 'GAME',
+        to:    '#game'
+    }, {
+        title: 'ABOUT',
+        to:    '#about'
+    }, {
+        title: 'CONTACT',
+        to:    '#contact'
+    }
+]
+
 
 const Menu = ({state}) => {
     return (
@@ -12,26 +28,13 @@ const Menu = ({state}) => {
             <div className={s.overlay}/>
             <div className={'menuItems'}>
                 <ul>
-                    <li>
-                        <a href="#welcome">
-                            HOME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#game">
-                            GAME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            ABOUT
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contact">
-                            CONTACT
-                        </a>
-                    </li>
+                    {
+                        menuItems.map(({title, to}, index) =>
+                            <li key={index}>
+                                <a href={to}>{title}</a>
+                            </li>
+                        )
+                    }
                 </ul>
             </div>
         </div>
