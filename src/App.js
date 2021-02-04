@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
-import HomePage from 'routes/Home';
-import GamePage from 'routes/Game';
+import HomePage from 'routes/HomePage';
+import GamePage from 'routes/GamePage';
 
 import './App.css';
 import './index.css';
