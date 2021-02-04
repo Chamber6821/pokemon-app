@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {MenuState} from 'components/Menu';
 
 import NavBar from 'components/NavBar';
 import Menu   from 'components/Menu';
@@ -7,18 +8,18 @@ import s from './style.module.css';
 
 
 const MenuHeader = () => {
-    const [isActive, setActive] = useState(false);
+    const [menuState, setMenuState] = useState(MenuState.NONE);
     const handleClick = () => {
-        setActive(!isActive);
+        setMenuState(MenuState.OPENED === menuState ? MenuState.CLOSED : MenuState.OPENED);
     }
 
     return (
         <div>
             <NavBar
-                isActive={isActive}
+                isActive={MenuState.OPENED === menuState}
                 onClick={handleClick}
             />
-            <Menu isActive={isActive}/>
+            <Menu state={menuState}/>
         </div>
     );
 };

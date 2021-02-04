@@ -3,9 +3,12 @@ import cn from 'classnames';
 import s from './style.module.css';
 
 
-const Menu = ({isActive}) => {
+const Menu = ({state}) => {
     return (
-        <div className={cn(s.menuContainer, isActive ? s.active : s.inactive)}>
+        <div className={cn(s.menuContainer, {
+            [s.active]:   MenuState.OPENED === state,
+            [s.inactive]: MenuState.CLOSED === state
+        })}>
             <div className={s.overlay}/>
             <div className={'menuItems'}>
                 <ul>
@@ -34,5 +37,11 @@ const Menu = ({isActive}) => {
         </div>
     );
 };
+
+export const MenuState = {
+    NONE:   'none',
+    OPENED: 'opened',
+    CLOSED: 'closed'
+}
 
 export default Menu;
