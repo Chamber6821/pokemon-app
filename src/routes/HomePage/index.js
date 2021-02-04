@@ -36,16 +36,6 @@ const HomePage = () => {
                     opponent's card will be captured and changed into the player's color instead.
                 </p>
             </Layout>
-            <Layout title="Cards" colorTitle="white" colorBg="#404040">
-                <div className={s.flex}>
-                    {
-                        PokemonData.map((item) => <PokemonCard
-                            key={item.id}
-                            {...item}
-                        />)
-                    }
-                </div>
-            </Layout>
         </>
     );
 };
