@@ -9,9 +9,8 @@ import s from './style.module.css';
 
 const MenuHeader = ({isBgActive}) => {
     const [menuState, setMenuState] = useState(MenuState.NONE);
-    const handleClick = () => {
-        setMenuState(MenuState.OPENED === menuState ? MenuState.CLOSED : MenuState.OPENED);
-    }
+    const handleClick = () => setMenuState(MenuState.OPENED === menuState ? MenuState.CLOSED : MenuState.OPENED)
+    const handleClickItem = () => setMenuState(MenuState.CLOSED);
 
     return (
         <div>
@@ -20,7 +19,10 @@ const MenuHeader = ({isBgActive}) => {
                 isBgActive={isBgActive}
                 onClick={handleClick}
             />
-            <Menu state={menuState}/>
+            <Menu
+                state={menuState}
+                onClickItem={handleClickItem}
+            />
         </div>
     );
 };

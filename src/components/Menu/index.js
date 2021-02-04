@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import {Link} from 'react-router-dom';
 
 import s from './style.module.css';
 
@@ -19,7 +20,8 @@ const menuItems = [
 ]
 
 
-const Menu = ({state}) => {
+const Menu = ({state, onClickItem}) => {
+    const handleClickItem = () => onClickItem && onClickItem()
     return (
         <div className={cn(s.menuContainer, {
             [s.active]:   State.OPENED === state,
@@ -31,7 +33,12 @@ const Menu = ({state}) => {
                     {
                         menuItems.map(({title, to}, index) =>
                             <li key={index}>
-                                <a href={to}>{title}</a>
+                                <Link
+                                    to={to}
+                                    onClick={handleClickItem}
+                                >
+                                    {title}
+                                </Link>
                             </li>
                         )
                     }
