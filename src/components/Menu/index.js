@@ -22,8 +22,8 @@ const menuItems = [
 const Menu = ({state}) => {
     return (
         <div className={cn(s.menuContainer, {
-            [s.active]:   MenuState.OPENED === state,
-            [s.inactive]: MenuState.CLOSED === state
+            [s.active]:   State.OPENED === state,
+            [s.inactive]: State.CLOSED === state
         })}>
             <div className={s.overlay}/>
             <div className={'menuItems'}>
@@ -41,10 +41,10 @@ const Menu = ({state}) => {
     );
 };
 
-export const MenuState = {
+export const State = Object.freeze({
     NONE:   'none',
     OPENED: 'opened',
     CLOSED: 'closed'
-}
+})
 
 export default Menu;

@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {MenuState} from 'components/Menu';
+import {useState}           from 'react';
+import {State as MenuState} from 'components/Menu';
 
 import NavBar from 'components/NavBar';
 import Menu   from 'components/Menu';
