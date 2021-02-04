@@ -17,7 +17,7 @@ const HomePage = ({onGoToPage}) => {
 
     return (
         <>
-            {true && <MenuHeader/>}
+            <MenuHeader isBgActive={false}/>
             <Header title="Pokemon Fight" desc="Created with React">
                 <button onClick={handleGoToPage('game')}>
                     Start Game

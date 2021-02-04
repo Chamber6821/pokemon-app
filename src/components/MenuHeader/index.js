@@ -7,7 +7,7 @@ import Menu   from 'components/Menu';
 import s from './style.module.css';
 
 
-const MenuHeader = () => {
+const MenuHeader = ({isBgActive}) => {
     const [menuState, setMenuState] = useState(MenuState.NONE);
     const handleClick = () => {
         setMenuState(MenuState.OPENED === menuState ? MenuState.CLOSED : MenuState.OPENED);
@@ -17,6 +17,7 @@ const MenuHeader = () => {
         <div>
             <NavBar
                 isActive={MenuState.OPENED === menuState}
+                isBgActive={isBgActive}
                 onClick={handleClick}
             />
             <Menu state={menuState}/>
