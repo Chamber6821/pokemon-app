@@ -5,16 +5,16 @@ import s from './style.module.css';
 const menuItems = [
     {
         title: 'HOME',
-        to:    '#home'
+        to:    '/'
     }, {
         title: 'GAME',
-        to:    '#game'
+        to:    '/game'
     }, {
         title: 'ABOUT',
-        to:    '#about'
+        to:    '/about'
     }, {
         title: 'CONTACT',
-        to:    '#contact'
+        to:    '/contact'
     }
 ]
 

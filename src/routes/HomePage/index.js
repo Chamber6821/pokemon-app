@@ -1,9 +1,9 @@
+import {Link} from 'react-router-dom';
+
 import Header        from 'components/Header';
-import Footer        from 'components/Footer';
 import Layout        from 'components/Layout';
 import PokemonCard   from 'components/PokemonCard';
-import MenuHeader    from 'components/MenuHeader';
-import PrimaryButton from '../../components/PrimaryButton';
+import PrimaryButton from 'components/PrimaryButton';
 
 import s from './style.module.css';
 
@@ -11,19 +11,15 @@ import Pikachu     from 'assets/img/bg1.jpg';
 import PokemonData from 'assets/json/pokemonData';
 
 
-const HomePage = ({onGoToPage}) => {
-    const handleGoToPage = (page) => () => {
-        onGoToPage && onGoToPage(page);
-    }
-
+const HomePage = () => {
     return (
         <>
-            <MenuHeader isBgActive={false}/>
             <Header title="Pokemon Fight" desc="Created with React">
-                <PrimaryButton
-                    title="Start Game"
-                    onClick={handleGoToPage('game')}
-                />
+                <PrimaryButton>
+                    <Link to="/game">
+                        Start Game
+                    </Link>
+                </PrimaryButton>
             </Header>
             <Layout title="Rules" urlBg={Pikachu}>
                 <p>
@@ -50,7 +46,6 @@ const HomePage = ({onGoToPage}) => {
                     }
                 </div>
             </Layout>
-            <Footer/>
         </>
     );
 };

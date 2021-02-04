@@ -1,9 +1,10 @@
 import s from './style.module.css';
 
-const PrimaryButton = ({title, onClick}) => {
+const PrimaryButton = ({onClick, children}) => {
+    const handleClick = () => onClick && onClick();
     return (
-        <button className={s.primaryButton} onClick={onClick}>
-            {title}
+        <button className={s.primaryButton} onClick={handleClick}>
+            {children}
         </button>
     );
 };

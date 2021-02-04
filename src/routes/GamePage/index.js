@@ -1,21 +1,20 @@
-import Header        from 'components/Header';
-import PrimaryButton from '../../components/PrimaryButton';
+import {Link} from 'react-router-dom';
+
+import PrimaryButton from 'components/PrimaryButton';
 
 import s from './style.module.css';
 
 
-const GamePage = ({onGoToPage}) => {
-    const handleGoToPage = (page) => () => {
-        onGoToPage && onGoToPage(page);
-    }
-
+const GamePage = () => {
     return (
-        <Header title="Game Page">
-            <PrimaryButton
-                title="Back to Home"
-                onClick={handleGoToPage('home')}
-            />
-        </Header>
+        <>
+            <h1>Game Page</h1>
+            <PrimaryButton>
+                <Link to="/">
+                    Back to Home
+                </Link>
+            </PrimaryButton>
+        </>
     );
 };
 

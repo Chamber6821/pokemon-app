@@ -1,0 +1,8 @@
+
+.wrapper {
+    padding: 96px 32px 24px;
+}
+
+.wrapper.noPadding {
+    padding: 0;
+}
