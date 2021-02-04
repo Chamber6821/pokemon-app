@@ -1,4 +1,5 @@
-import Header from 'components/Header';
+import Header        from 'components/Header';
+import PrimaryButton from '../../components/PrimaryButton';
 
 import s from './style.module.css';
 
@@ -10,9 +11,10 @@ const GamePage = ({onGoToPage}) => {
 
     return (
         <Header title="Game Page">
-            <button onClick={handleGoToPage('home')}>
-                Back to Home
-            </button>
+            <PrimaryButton
+                title="Back to Home"
+                onClick={handleGoToPage('home')}
+            />
         </Header>
     );
 };

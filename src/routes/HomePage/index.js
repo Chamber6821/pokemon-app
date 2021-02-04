@@ -1,8 +1,9 @@
-import Header      from 'components/Header';
-import Footer      from 'components/Footer';
-import Layout      from 'components/Layout';
-import PokemonCard from 'components/PokemonCard';
-import MenuHeader  from 'components/MenuHeader';
+import Header        from 'components/Header';
+import Footer        from 'components/Footer';
+import Layout        from 'components/Layout';
+import PokemonCard   from 'components/PokemonCard';
+import MenuHeader    from 'components/MenuHeader';
+import PrimaryButton from '../../components/PrimaryButton';
 
 import s from './style.module.css';
 
@@ -19,9 +20,10 @@ const HomePage = ({onGoToPage}) => {
         <>
             <MenuHeader isBgActive={false}/>
             <Header title="Pokemon Fight" desc="Created with React">
-                <button onClick={handleGoToPage('game')}>
-                    Start Game
-                </button>
+                <PrimaryButton
+                    title="Start Game"
+                    onClick={handleGoToPage('game')}
+                />
             </Header>
             <Layout title="Rules" urlBg={Pikachu}>
                 <p>
