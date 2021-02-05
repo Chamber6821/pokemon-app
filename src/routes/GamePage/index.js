@@ -10,11 +10,18 @@ import s from './style.module.css';
 import PokemonData from 'assets/json/pokemonData';
 
 
+const initPokemons = PokemonData.map((item) => ({
+    isActive: false,
+    chars:    item
+}));
+
 const GamePage = () => {
-    const [_, update] = useState();
-    const handleClickPokemon = (pokemon) => () => {
-        pokemon.isActive = true;
-        update(Math.random());
+    const [pokemons, update] = useState(initPokemons);
+    const handleClickPokemon = (id) => () => {
+        update(pokemons => pokemons.map(({isActive, chars}) => {
+            if (chars.id === id) isActive = true;
+            return {isActive: isActive, chars: chars};
+        }));
     }
     return (
         <>
@@ -27,11 +34,11 @@ const GamePage = () => {
             <Layout title="Cards" colorTitle="white" colorBg="#404040">
                 <div className={s.flex}>
                     {
-                        PokemonData.map((item) => <PokemonCard
-                            key={item.id}
-                            isActive={item.isActive}
-                            data={item}
-                            onClick={handleClickPokemon(item)}
+                        pokemons.map(({isActive, chars}) => <PokemonCard
+                            key={chars.id}
+                            isActive={isActive}
+                            data={chars}
+                            onClick={handleClickPokemon(chars.id)}
                         />)
                     }
                 </div>
