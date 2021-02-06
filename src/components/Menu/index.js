@@ -1,38 +1,57 @@
 import cn from 'classnames';
+import {Link} from 'react-router-dom';
 
 import s from './style.module.css';
 
+const menuItems = [
+    {
+        title: 'HOME',
+        to:    '/'
+    }, {
+        title: 'GAME',
+        to:    '/game'
+    }, {
+        title: 'ABOUT',
+        to:    '/about'
+    }, {
+        title: 'CONTACT',
+        to:    '/contact'
+    }
+]
 
-const Menu = ({isActive}) => {
+
+const Menu = ({state, onClickItem}) => {
+    const handleClickItem = () => onClickItem && onClickItem()
     return (
-        <div className={cn(s.menuContainer, isActive ? s.active : s.inactive)}>
+        <div className={cn(s.menuContainer, {
+            [s.active]:   State.OPENED === state,
+            [s.inactive]: State.CLOSED === state
+        })}>
             <div className={s.overlay}/>
             <div className={'menuItems'}>
                 <ul>
-                    <li>
-                        <a href="#welcome">
-                            HOME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#game">
-                            GAME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            ABOUT
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contact">
-                            CONTACT
-                        </a>
-                    </li>
+                    {
+                        menuItems.map(({title, to}, index) =>
+                            <li key={index}>
+                                <Link
+                                    to={to}
+                                    onClick={handleClickItem}
+                                >
+                                    {title}
+                                </Link>
+                            </li>
+                        )
+                    }
                 </ul>
             </div>
         </div>
     );
 };
+
+export const State = Object.freeze({
+    NONE:   'none',
+    OPENED: 'opened',
+    CLOSED: 'closed'
+})
 
 export default Menu;

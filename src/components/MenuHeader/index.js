@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useState}           from 'react';
+import {State as MenuState} from 'components/Menu';
 
 import NavBar from 'components/NavBar';
 import Menu   from 'components/Menu';
@@ -6,19 +7,22 @@ import Menu   from 'components/Menu';
 import s from './style.module.css';
 
 
-const MenuHeader = () => {
-    const [isActive, setActive] = useState(false);
-    const handleClick = () => {
-        setActive(!isActive);
-    }
+const MenuHeader = ({isBgActive}) => {
+    const [menuState, setMenuState] = useState(MenuState.NONE);
+    const handleClick = () => setMenuState(MenuState.OPENED === menuState ? MenuState.CLOSED : MenuState.OPENED)
+    const handleClickItem = () => setMenuState(MenuState.CLOSED);
 
     return (
         <div>
             <NavBar
-                isActive={isActive}
+                isActive={MenuState.OPENED === menuState}
+                isBgActive={isBgActive}
                 onClick={handleClick}
             />
-            <Menu isActive={isActive}/>
+            <Menu
+                state={menuState}
+                onClickItem={handleClickItem}
+            />
         </div>
     );
 };

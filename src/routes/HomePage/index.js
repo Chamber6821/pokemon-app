@@ -1,8 +1,9 @@
-import Header      from 'components/Header';
-import Footer      from 'components/Footer';
-import Layout      from 'components/Layout';
-import PokemonCard from 'components/PokemonCard';
-import MenuHeader  from 'components/MenuHeader';
+import {Link} from 'react-router-dom';
+
+import Header        from 'components/Header';
+import Layout        from 'components/Layout';
+import PokemonCard   from 'components/PokemonCard';
+import PrimaryButton from 'components/PrimaryButton';
 
 import s from './style.module.css';
 
@@ -10,18 +11,15 @@ import Pikachu     from 'assets/img/bg1.jpg';
 import PokemonData from 'assets/json/pokemonData';
 
 
-const HomePage = ({onGoToPage}) => {
-    const handleGoToPage = (page) => () => {
-        onGoToPage && onGoToPage(page);
-    }
-
+const HomePage = () => {
     return (
         <>
-            {true && <MenuHeader/>}
             <Header title="Pokemon Fight" desc="Created with React">
-                <button onClick={handleGoToPage('game')}>
-                    Start Game
-                </button>
+                <PrimaryButton>
+                    <Link to="/game">
+                        Start Game
+                    </Link>
+                </PrimaryButton>
             </Header>
             <Layout title="Rules" urlBg={Pikachu}>
                 <p>
@@ -38,17 +36,6 @@ const HomePage = ({onGoToPage}) => {
                     opponent's card will be captured and changed into the player's color instead.
                 </p>
             </Layout>
-            <Layout title="Cards" colorTitle="white" colorBg="#404040">
-                <div className={s.flex}>
-                    {
-                        PokemonData.map((item) => <PokemonCard
-                            key={item.id}
-                            {...item}
-                        />)
-                    }
-                </div>
-            </Layout>
-            <Footer/>
         </>
     );
 };
