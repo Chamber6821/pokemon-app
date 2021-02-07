@@ -13,9 +13,14 @@ import database from '../../services/firebase';
 const GamePage = () => {
     const [pokemons, setPokemons] = useState([]);
     const handleClickPokemon = (id) => () => {
-        setPokemons(pokemons.map((p) =>
-            p.id === id ? {...p, active: !p.active} : p
-        ));
+        setPokemons(pokemons.map((p) => {
+            p = {...p};
+            if (p.id === id) {
+                p.active = !p.active;
+                database.ref('pokemons/' + p.objId).set(p);
+            }
+            return p;
+        }));
     }
 
     useEffect(() => {
