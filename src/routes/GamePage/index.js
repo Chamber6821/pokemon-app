@@ -1,5 +1,5 @@
-import {Link}     from 'react-router-dom';
-import {useState} from 'react';
+import {Link}                from 'react-router-dom';
+import {useState, useEffect} from 'react';
 
 import PrimaryButton from 'components/PrimaryButton';
 import PokemonCard   from 'components/PokemonCard';
@@ -7,22 +7,27 @@ import Layout        from 'components/Layout';
 
 import s from './style.module.css';
 
-import PokemonData from 'assets/json/pokemonData';
+import database from '../../services/firebase';
 
-
-const initPokemons = PokemonData.map((item) => ({
-    isActive: false,
-    chars:    item
-}));
 
 const GamePage = () => {
-    const [pokemons, update] = useState(initPokemons);
+    const [pokemons, setPokemons] = useState([]);
     const handleClickPokemon = (id) => () => {
-        update(pokemons => pokemons.map(({isActive, chars}) => {
-            if (chars.id === id) isActive = true;
-            return {isActive: isActive, chars: chars};
-        }));
+        setPokemons(pokemons.map((p) =>
+            p.id === id ? {...p, active: !p.active} : p
+        ));
     }
+
+    useEffect(() => {
+        database.ref('pokemons').once('value', (snapshot) => {
+            setPokemons(Object.entries(snapshot.val()).map(([objId, p]) => ({
+                objId: objId,
+                active: false,
+                ...p
+            })));
+        });
+    }, [])
+
     return (
         <>
             <h1>Game Page</h1>
@@ -34,11 +39,11 @@ const GamePage = () => {
             <Layout title="Cards" colorTitle="white" colorBg="#404040">
                 <div className={s.flex}>
                     {
-                        pokemons.map(({isActive, chars}) => <PokemonCard
-                            key={chars.id}
-                            isActive={isActive}
-                            data={chars}
-                            onClick={handleClickPokemon(chars.id)}
+                        pokemons.map((p) => <PokemonCard
+                            key={p.id}
+                            isActive={p.active}
+                            data={p}
+                            onClick={handleClickPokemon(p.id)}
                         />)
                     }
                 </div>
