@@ -1,24 +1,16 @@
-import {Link} from 'react-router-dom';
-
 import Header        from 'components/Header';
 import Layout        from 'components/Layout';
-import PokemonCard   from 'components/PokemonCard';
 import PrimaryButton from 'components/PrimaryButton';
 
-import s from './style.module.css';
-
-import Pikachu     from 'assets/img/bg1.jpg';
-import PokemonData from 'assets/json/pokemonData';
+import Pikachu from 'assets/img/bg1.jpg';
 
 
 const HomePage = () => {
     return (
         <>
             <Header title="Pokemon Fight" desc="Created with React">
-                <PrimaryButton>
-                    <Link to="/game">
-                        Start Game
-                    </Link>
+                <PrimaryButton to="/game">
+                    Start Game
                 </PrimaryButton>
             </Header>
             <Layout title="Rules" urlBg={Pikachu}>
