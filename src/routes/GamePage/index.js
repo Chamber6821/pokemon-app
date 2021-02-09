@@ -5,42 +5,38 @@ import PokemonCard   from 'components/PokemonCard';
 
 import s from './style.module.css';
 
-import database from '../../services/firebase';
+import database from 'services/firebase';
 
 
 const GamePage = () => {
-    const [pokemons, setPokemons] = useState([]);
+    const [pokemons, setPokemons] = useState({});
 
     const handleClickPokemon = (objId) => () => {
-        setPokemons(pokemons.map((p) => {
-            p = {...p};
-            if (p.objId === objId) {
-                p.active = !p.active;
-                database.ref('pokemons/' + p.objId).set(p);
-            }
-            return p;
-        }));
-    }
-
-    const loadPokemonsFromFirebase = () => {
-        database.ref('pokemons').once('value', (snapshot) => {
-            setPokemons(Object.entries(snapshot.val()).map(([objId, p]) => ({
-                objId: objId,
-                active: false,
-                ...p
-            })));
+        const p = {...pokemons[objId]};
+        p.active = !p.active;
+        database.ref('pokemons/' + objId).set(p).then(() => {
+            setPokemons(prevState => {
+                prevState = {...prevState};
+                prevState[objId] = p;
+                return prevState;
+            });
         });
     }
 
     const addNewRandomPokemon = () => {
-        const {objId, ...randomPokemon} = pokemons[Math.floor(Math.random() * pokemons.length)];
-        const key = database.ref('pokemons').push(randomPokemon).key;
-        console.log(`Create new pokemon, key: ${key}`);
+        const entries = Object.entries(pokemons);
+        const [_, {...randomPokemon}] = entries[Math.floor(Math.random() * entries.length)];
 
-        loadPokemonsFromFirebase();
+        database.ref('pokemons').push(randomPokemon).then(({key}) => {
+           setPokemons(prevState => ({...prevState, [key]: randomPokemon}));
+        });
     }
 
-    useEffect(loadPokemonsFromFirebase, [])
+    useEffect(() => {
+        database.ref('pokemons').once('value', (snapshot) => {
+            setPokemons(snapshot.val());
+        });
+    }, [])
 
     return (
         <>
@@ -52,11 +48,11 @@ const GamePage = () => {
                 </div>
                 <div className={s.flex}>
                     {
-                        pokemons.map((p) => <PokemonCard
-                            key={p.objId}
+                        Object.entries(pokemons).map(([objId, p]) => <PokemonCard
+                            key={objId}
                             isActive={p.active}
                             data={p}
-                            onClick={handleClickPokemon(p.objId)}
+                            onClick={handleClickPokemon(objId)}
                         />)
                     }
                 </div>
