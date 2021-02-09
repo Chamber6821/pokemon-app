@@ -53,6 +53,7 @@ const StartPage = () => {
                             isActive={p.active}
                             data={p}
                             onClick={handleClickPokemon(objId)}
+                            className={s.card}
                         />)
                     }
                 </div>

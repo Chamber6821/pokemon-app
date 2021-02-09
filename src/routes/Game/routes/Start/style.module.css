@@ -5,3 +5,10 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+.card {
+    /* Опять стили ломаешь своими дз >:( */
+    width: 238px;
+    height: 342px;
+    margin: 10px;
+}
