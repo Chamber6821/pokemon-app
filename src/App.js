@@ -2,12 +2,12 @@ import {Switch, Route, useRouteMatch, Redirect} from 'react-router-dom';
 import cn                                       from 'classnames';
 
 import MenuHeader  from 'components/MenuHeader';
-import HomePage    from 'routes/HomePage';
-import GamePage    from 'routes/GamePage';
-import Footer      from './components/Footer';
-import AboutPage   from './routes/AboutPage';
-import ContactPage from './routes/ContactPage';
-import NotFound    from './routes/NotFound';
+import Footer      from 'components/Footer';
+import HomePage    from 'routes/Home';
+import GamePage    from 'routes/Game';
+import AboutPage   from 'routes/About';
+import ContactPage from 'routes/Contact';
+import NotFound    from 'routes/NotFound';
 
 import s from './style.module.css'
 
