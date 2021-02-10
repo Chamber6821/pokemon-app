@@ -1,0 +1,16 @@
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.card {
+    /* Опять стили ломаешь своими дз >:( */
+    width: 238px;
+    height: 342px;
+    margin: 15px 10px;
+    cursor: pointer;
+}

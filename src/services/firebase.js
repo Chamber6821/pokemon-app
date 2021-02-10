@@ -11,9 +11,17 @@ const firebaseConfig = {
     appId: "1:991240952910:web:9d6a55237e0f21d562b71f"
 };
 
-firebase.initializeApp(firebaseConfig);
+class Firebase {
+    constructor() {
+        firebase.initializeApp(firebaseConfig);
 
-export const fire = firebase;
-export const database = fire.database();
+        this.fire = firebase;
+        this.db = this.fire.database();
+    }
 
-export default database;
+    getPokemonsOnce = async () => {
+        return await this.db.ref('pokemons').once('value').then(snap => snap.val());
+    }
+}
+
+export default Firebase;
