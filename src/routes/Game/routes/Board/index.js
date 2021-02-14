@@ -1,37 +1,59 @@
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 
 import {PokemonsContext} from 'context/pokemonsContext';
 
 import PokemonCard from 'components/PokemonCard';
+import PlayerBoard from 'components/PlayerBoard';
 
 import s from './style.module.css';
 
 
 const BoardPage = () => {
+    const [board, setBoard] = useState([]);
+    const [opponentCards, setOpponentCards] = useState([]);
     const pokemons = useContext(PokemonsContext).selected;
+
+    // const history = useHistory();
+    // if (Object.keys(pokemons).length === 0) {
+    //     history.replace('/game');
+    // }
+
+    const loadBoard = async () => {
+        const response = await fetch('https://reactmarathon-api.netlify.app/api/board');
+        return (await response.json()).data;
+    }
+
+    const loadOpponentCard = async () => {
+        const response = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
+        return (await response.json()).data;
+    }
+
+    useEffect(() => {
+        (async () => {
+            setBoard(await loadBoard());
+            setOpponentCards(await loadOpponentCard());
+        })();
+    }, [])
 
     return (
         <div className={s.root}>
             <div className={s.playerOne}>
-                {
-                    Object.entries(pokemons).map(([objId, p]) => <PokemonCard
-                        key={objId}
-                        minimize={true}
-                        data={p}
-                        className={s.card}
-                    />)
-                }
+                <PlayerBoard cards={Object.values(pokemons)}/>
             </div>
             <div className={s.board}>
-                <div className={s.boardPlate}>1</div>
-                <div className={s.boardPlate}>2</div>
-                <div className={s.boardPlate}>3</div>
-                <div className={s.boardPlate}>4</div>
-                <div className={s.boardPlate}>5</div>
-                <div className={s.boardPlate}>6</div>
-                <div className={s.boardPlate}>7</div>
-                <div className={s.boardPlate}>8</div>
-                <div className={s.boardPlate}>9</div>
+                {
+                    board.map(({position, card}) =>
+                        <div className={s.boardPlate} key={position}>
+                            {card && <PokemonCard
+                                data={card}
+                                minimize={true}
+                            />}
+                        </div>
+                    )
+                }
+            </div>
+            <div className={s.playerTwo}>
+                <PlayerBoard cards={opponentCards}/>
             </div>
         </div>
     );
