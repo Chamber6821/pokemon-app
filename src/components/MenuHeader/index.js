@@ -4,8 +4,6 @@ import {State as MenuState} from 'components/Menu';
 import NavBar from 'components/NavBar';
 import Menu   from 'components/Menu';
 
-import s from './style.module.css';
-
 
 const MenuHeader = ({isBgActive}) => {
     const [menuState, setMenuState] = useState(MenuState.NONE);

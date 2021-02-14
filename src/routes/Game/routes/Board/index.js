@@ -10,7 +10,6 @@ import s from './style.module.css';
 
 const BoardPage = () => {
     const [board, setBoard] = useState([]);
-    const [opponentCards, setOpponentCards] = useState([]);
     const gameContext = useContext(GameContext);
 
     // const history = useHistory();

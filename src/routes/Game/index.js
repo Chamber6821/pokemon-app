@@ -13,7 +13,7 @@ const GamePage = () => {
     const [opponentCards, setOpponentCards] = useState([]);
 
     const gameContextValue = {
-        myCards: myCards,
+        myCards:       myCards,
         opponentCards: opponentCards,
 
         setMyCards,
@@ -24,9 +24,9 @@ const GamePage = () => {
     return (
         <GameContext.Provider value={gameContextValue}>
             <Switch>
-                <Route path={`${match.path}/`} exact component={StartPage}/>
-                <Route path={`${match.path}/board`} component={BoardPage}/>
-                <Route path={`${match.path}/finish`} component={FinishPage}/>
+                <Route path={match.path + '/'} exact component={StartPage}/>
+                <Route path={match.path + '/board'} component={BoardPage}/>
+                <Route path={match.path + '/finish'} component={FinishPage}/>
             </Switch>
         </GameContext.Provider>
     );
