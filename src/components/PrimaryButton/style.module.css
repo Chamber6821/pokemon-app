@@ -1,2 +1,5 @@
 
-.primaryButton {}
+.primaryButton {
+    width: fit-content;
+    height: fit-content;
+}
