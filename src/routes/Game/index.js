@@ -17,6 +17,14 @@ const GamePage = () => {
     const [isGameOver, setGameOver] = useState(false);
     const [score, setScore] = useState({my: 0, opponent: 0});
 
+    const clear = () => {
+        setMyCards([]); setOpponentCards([]);
+        setMyDeck([]); setOpponentDeck([]);
+        setSelectedCard(null);
+        setGameOver(false);
+        setScore({my: 0, opponent: 0});
+    }
+
     const contextValue = {
         myCards, setMyCards,
         myDeck, setMyDeck,
@@ -24,7 +32,9 @@ const GamePage = () => {
         opponentDeck, setOpponentDeck,
         selectedCard, setSelectedCard,
         isGameOver, setGameOver,
-        score, setScore
+        score, setScore,
+
+        clear
     }
 
     const match = useRouteMatch();
