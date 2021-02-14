@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 
-import {PokemonsContext} from 'context/pokemonsContext';
+import {GameContext} from 'context/gameContext';
 
 import PokemonCard from 'components/PokemonCard';
 import PlayerBoard from 'components/PlayerBoard';
@@ -11,7 +11,7 @@ import s from './style.module.css';
 const BoardPage = () => {
     const [board, setBoard] = useState([]);
     const [opponentCards, setOpponentCards] = useState([]);
-    const pokemons = useContext(PokemonsContext).selected;
+    const gameContext = useContext(GameContext);
 
     // const history = useHistory();
     // if (Object.keys(pokemons).length === 0) {
@@ -31,14 +31,14 @@ const BoardPage = () => {
     useEffect(() => {
         (async () => {
             setBoard(await loadBoard());
-            setOpponentCards(await loadOpponentCard());
-        })();
+            gameContext.setOpponentCards(await loadOpponentCard());
+        })().then();
     }, [])
 
     return (
         <div className={s.root}>
             <div className={s.playerOne}>
-                <PlayerBoard cards={Object.values(pokemons)}/>
+                <PlayerBoard cards={gameContext.myCards}/>
             </div>
             <div className={s.board}>
                 {
@@ -53,7 +53,7 @@ const BoardPage = () => {
                 }
             </div>
             <div className={s.playerTwo}>
-                <PlayerBoard cards={opponentCards}/>
+                <PlayerBoard cards={gameContext.opponentCards}/>
             </div>
         </div>
     );

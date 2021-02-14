@@ -1,6 +1,6 @@
 import {useState, useEffect, useContext} from 'react';
 
-import {PokemonsContext} from 'context/pokemonsContext';
+import {GameContext}     from 'context/gameContext';
 import {FirebaseContext} from 'context/firebaseContext';
 
 import PrimaryButton from 'components/PrimaryButton';
@@ -11,49 +11,47 @@ import s from './style.module.css';
 
 const StartPage = () => {
     const [pokemons, setPokemons] = useState({});
-    const pokemonsContext = useContext(PokemonsContext);
+    const gameContext = useContext(GameContext);
     const firebase = useContext(FirebaseContext)
 
-    const handleClickPokemon = (objId) => () => {
-        setPokemons(prevState => Object.entries(prevState).reduce((acc, [key, p]) => {
-            if (key === objId) {
-                p = {...p, selected: !p.selected};
-
-                if (p.selected) pokemonsContext.update(key, p);
-                else pokemonsContext.remove(key);
-            }
-
-            acc[key] = p;
-            return acc;
-        }, {}));
+    const handleClickPokemon = (key, card) => () => {
+        setPokemons(prevState => {
+            prevState = {...prevState};
+            prevState[key] = {...card, selected: !card.selected};
+            return prevState;
+        });
     };
 
-    useEffect(async () => {
-        pokemonsContext.clear();
-        setPokemons(await firebase.getPokemonsOnce());
+    const handleClickStartGame = () => {
+        const selectedCards = Object.values(pokemons).filter((item) => item.selected);
+        gameContext.setMyCards(selectedCards);
+    }
+
+    useEffect(() => {
+        (async () => {
+            setPokemons(await firebase.getPokemonsOnce());
+        })().then();
     }, []);
 
     return (
-        <>
-            <div>
-                <div className={s.flex}>
-                    <PrimaryButton to="/game/board">
-                        Start Game
-                    </PrimaryButton>
-                </div>
-                <div className={s.flex}>
-                    {
-                        Object.entries(pokemons).map(([objId, p]) => <PokemonCard
-                            key={objId}
-                            isSelected={p.selected}
-                            data={p}
-                            onClick={handleClickPokemon(objId)}
-                            className={s.card}
-                        />)
-                    }
-                </div>
+        <div>
+            <div className={s.flex}>
+                <PrimaryButton onClick={handleClickStartGame} to="/game/board">
+                    Start Game
+                </PrimaryButton>
             </div>
-        </>
+            <div className={s.flex}>
+                {
+                    Object.entries(pokemons).map(([key, card]) => <PokemonCard
+                        key={key}
+                        isSelected={card.selected}
+                        data={card}
+                        onClick={handleClickPokemon(key, card)}
+                        className={s.card}
+                    />)
+                }
+            </div>
+        </div>
     );
 };
 
