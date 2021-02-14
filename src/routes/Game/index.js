@@ -14,13 +14,17 @@ const GamePage = () => {
     const [opponentCards, setOpponentCards] = useState([]);
     const [opponentDeck, setOpponentDeck] = useState(opponentCards);
     const [selectedCard, setSelectedCard] = useState(null);
+    const [isGameOver, setGameOver] = useState(false);
+    const [score, setScore] = useState({my: 0, opponent: 0});
 
     const contextValue = {
         myCards, setMyCards,
         myDeck, setMyDeck,
         opponentCards, setOpponentCards,
         opponentDeck, setOpponentDeck,
-        selectedCard, setSelectedCard
+        selectedCard, setSelectedCard,
+        isGameOver, setGameOver,
+        score, setScore
     }
 
     const match = useRouteMatch();

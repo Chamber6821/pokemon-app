@@ -1,4 +1,5 @@
 import {useContext, useEffect, useState} from 'react';
+import {useHistory}                      from 'react-router-dom';
 
 import {GameContext} from 'context/gameContext';
 
@@ -13,9 +14,9 @@ const countScore = (board, myCards, opponentCards) => {
     let opponentScore = opponentCards.length;
 
     board.forEach((card) => {
-       if (card.possession === 'blue') myScore++;
-       else if (card.possession === 'red') opponentScore++;
-       // else *warning/error*
+        if (card.possession === 'blue') myScore++;
+        else if (card.possession === 'red') opponentScore++;
+        // else *warning/error*
     });
 
     return {myScore, opponentScore};
@@ -24,6 +25,7 @@ const countScore = (board, myCards, opponentCards) => {
 const BoardPage = () => {
     const [board, setBoard] = useState([]);
     const [steps, setSteps] = useState(0);
+    const history = useHistory();
     const gameContext = useContext(GameContext);
 
     // const history = useHistory();
@@ -52,11 +54,11 @@ const BoardPage = () => {
             }
 
             const response = await fetch('https://reactmarathon-api.netlify.app/api/players-turn', {
-                method: 'POST',
+                method:  'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(params),
+                body:    JSON.stringify(params),
             });
 
             const newBoard = (await response.json()).data;
@@ -74,6 +76,7 @@ const BoardPage = () => {
         }
     }
 
+    // Load opponent and init decks
     useEffect(() => {
         (async () => {
             const newBoard = await loadBoard();
@@ -89,14 +92,13 @@ const BoardPage = () => {
         })().then();
     }, [])
 
+    // Handle game over
     useEffect(() => {
         if (steps >= 9) {
             const {myScore, opponentScore} = countScore(board, gameContext.myCards, gameContext.opponentCards);
-            let message;
-            if (myScore > opponentScore) message = 'WIN';
-            else message = 'LOSE';
-
-            alert(message);
+            gameContext.setScore({my: myScore, opponent: opponentScore});
+            gameContext.setGameOver(true);
+            history.replace('/game/finish');
         }
     }, [steps])
 
