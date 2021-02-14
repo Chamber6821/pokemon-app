@@ -50,6 +50,15 @@ const BoardPage = () => {
 
             const newBoard = (await response.json()).data;
             setBoard(newBoard);
+
+            if (selectedCard.possession === 'blue') {
+                gameContext.setMyCards(prevState => prevState.filter((item) => item !== selectedCard));
+            }
+
+            if (selectedCard.possession === 'red') {
+                console.log(gameContext.opponentCards.filter((item) => item !== selectedCard));
+                gameContext.setOpponentCards(prevState => prevState.filter((item) => item !== selectedCard));
+            }
         }
     }
 
