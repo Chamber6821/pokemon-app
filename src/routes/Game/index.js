@@ -10,17 +10,21 @@ import FinishPage from './routes/Finish';
 
 const GamePage = () => {
     const [myCards, setMyCards] = useState([]);
+    const [myDeck, setMyDeck] = useState(myCards);
     const [opponentCards, setOpponentCards] = useState([]);
+    const [opponentDeck, setOpponentDeck] = useState(opponentCards);
     const [selectedCard, setSelectedCard] = useState(null);
 
     const contextValue = {
         myCards, setMyCards,
+        myDeck, setMyDeck,
         opponentCards, setOpponentCards,
+        opponentDeck, setOpponentDeck,
         selectedCard, setSelectedCard
     }
 
     const match = useRouteMatch();
-    
+
     return (
         <GameContext.Provider value={contextValue}>
             <Switch>

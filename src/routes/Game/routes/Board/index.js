@@ -44,8 +44,6 @@ const BoardPage = () => {
     const handleClickPlate = (position) => async () => {
         const selectedCard = gameContext.selectedCard;
 
-        console.log('position:', position, 'card:', selectedCard);
-
         if (selectedCard) {
             const params = {
                 position,
@@ -65,12 +63,11 @@ const BoardPage = () => {
             setBoard(newBoard);
 
             if (selectedCard.possession === 'blue') {
-                gameContext.setMyCards(prevState => prevState.filter((item) => item !== selectedCard));
-            }
-
-            if (selectedCard.possession === 'red') {
-                console.log(gameContext.opponentCards.filter((item) => item !== selectedCard));
-                gameContext.setOpponentCards(prevState => prevState.filter((item) => item !== selectedCard));
+                gameContext.setMyDeck(prevState => prevState.filter((item) => item !== selectedCard));
+            } else if (selectedCard.possession === 'red') {
+                gameContext.setOpponentDeck(prevState => prevState.filter((item) => item !== selectedCard));
+            } else {
+                console.log('Warning: invalid possession:', selectedCard.possession);
             }
 
             setSteps(steps => steps + 1);
@@ -79,9 +76,16 @@ const BoardPage = () => {
 
     useEffect(() => {
         (async () => {
-            setBoard(await loadBoard());
-            gameContext.setOpponentCards((await loadOpponentCard()).map((item) => ({...item, possession: 'red'})));
-            gameContext.setMyCards(prevState => Array.from(prevState).map((item) => ({...item, possession: 'blue'})));
+            const newBoard = await loadBoard();
+            const opponentCards = (await loadOpponentCard()).map((item) => ({...item, possession: 'red'}));
+            const myCards = Array.from(gameContext.myCards).map((item) => ({...item, possession: 'blue'}));
+
+            setBoard(newBoard);
+            gameContext.setMyCards(myCards);
+            gameContext.setOpponentCards(opponentCards);
+
+            gameContext.setMyDeck(myCards);
+            gameContext.setOpponentDeck(opponentCards);
         })().then();
     }, [])
 
@@ -99,7 +103,7 @@ const BoardPage = () => {
     return (
         <div className={s.root}>
             <div className={s.playerOne}>
-                <PlayerBoard cards={gameContext.myCards}/>
+                <PlayerBoard cards={gameContext.myDeck}/>
             </div>
             <div className={s.board}>
                 {
@@ -118,7 +122,7 @@ const BoardPage = () => {
                 }
             </div>
             <div className={s.playerTwo}>
-                <PlayerBoard cards={gameContext.opponentCards}/>
+                <PlayerBoard cards={gameContext.opponentDeck}/>
             </div>
         </div>
     );
