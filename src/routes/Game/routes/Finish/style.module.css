@@ -1,0 +1,31 @@
+
+.verticalContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.verticalContainer > .item {
+    margin: 10px 0;
+}
+
+.horizontalContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.horizontalContainer > .item {
+    margin: 0 10px;
+}
+
+.card {
+    /* max-height: 14.8vw; */
+    /* margin-top: -6vw; */
+    height: 300px;
+    width: 200px;
+    cursor: pointer;
+}
