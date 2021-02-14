@@ -2,15 +2,17 @@ import cn                     from 'classnames';
 import {useContext, useState} from 'react';
 import {useHistory}           from 'react-router-dom';
 
-import {GameContext} from 'context/gameContext';
-import PokemonCard   from 'components/PokemonCard';
-import PrimaryButton from 'components/PrimaryButton';
+import {GameContext}     from 'context/gameContext';
+import {FirebaseContext} from 'context/firebaseContext';
+import PokemonCard       from 'components/PokemonCard';
+import PrimaryButton     from 'components/PrimaryButton';
 
 import s from './style.module.css';
 
 const FinishPage = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const gameContext = useContext(GameContext);
+    const firebase = useContext(FirebaseContext);
     const history = useHistory();
 
     if (!gameContext.isGameOver) history.replace('/game');
@@ -18,6 +20,10 @@ const FinishPage = () => {
     const handleClickCard = (card) => () => {
         if (selectedCard === card) setSelectedCard(null);
         else setSelectedCard(card);
+    }
+
+    const handleClickEndGame = () => {
+        if (selectedCard) firebase.addPokemon(selectedCard).then();
     }
 
     return (
@@ -36,7 +42,7 @@ const FinishPage = () => {
                 }
             </div>
             <div className={s.item}>
-                <PrimaryButton to="/game">
+                <PrimaryButton onClick={handleClickEndGame} to="/game">
                     End Game
                 </PrimaryButton>
             </div>
