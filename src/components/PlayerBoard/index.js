@@ -1,5 +1,7 @@
-import cn         from 'classnames';
-import {useState} from 'react';
+import cn           from 'classnames';
+import {useContext} from 'react';
+
+import {GameContext} from 'context/gameContext';
 
 import PokemonCard from 'components/PokemonCard';
 
@@ -7,11 +9,12 @@ import s from './style.module.css';
 
 
 const PlayerBoard = ({cards}) => {
-    const [selectedCardId, setSelectedCardId] = useState(-1);
+    const gameContext = useContext(GameContext);
+    const selectedCard = gameContext.selectedCard;
 
-    const handleClickCard = (id) => () => {
-        if (id === selectedCardId) setSelectedCardId(-1)
-        else setSelectedCardId(id);
+    const handleClickCard = (card) => () => {
+        if (selectedCard === card) gameContext.setSelectedCard(null);
+        else gameContext.setSelectedCard(card);
     }
 
     return (
@@ -20,11 +23,11 @@ const PlayerBoard = ({cards}) => {
                 cards.map((item) => <PokemonCard
                     key={item.id}
                     className={cn(s.card, {
-                        [s.selected]: selectedCardId === item.id
+                        [s.selected]: selectedCard === item
                     })}
                     data={item}
                     minimize={true}
-                    onClick={handleClickCard(item.id)}
+                    onClick={handleClickCard(item)}
                 />)
             }
         </div>

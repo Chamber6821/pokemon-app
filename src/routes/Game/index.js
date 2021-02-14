@@ -9,16 +9,20 @@ import FinishPage from './routes/Finish';
 
 
 const GamePage = () => {
-    const [myCards, setMyCards] = useState([]);
-    const [opponentCards, setOpponentCards] = useState([]);
+    const [gameContextValue, setGameContextValue] = useState({
+        myCards:    [],
+        setMyCards: (cards) => updateProperty('myCards', cards),
 
-    const gameContextValue = {
-        myCards:       myCards,
-        opponentCards: opponentCards,
+        opponentCards: [],
+        setOpponentCards: (cards) => updateProperty('opponentCards', cards),
 
-        setMyCards,
-        setOpponentCards,
-    }
+        selectedCard: null,
+        setSelectedCard: (card) => updateProperty('selectedCard', card),
+    });
+
+    const updateProperty = (key, value) => {
+        setGameContextValue(prevState => ({...prevState, [key]: value}));
+    };
 
     const match = useRouteMatch();
     return (
