@@ -9,26 +9,20 @@ import FinishPage from './routes/Finish';
 
 
 const GamePage = () => {
-    const [gameContextValue, setGameContextValue] = useState({
-        myCards:    [],
-        setMyCards: (cards) => updateProperty('myCards', cards),
+    const [myCards, setMyCards] = useState([]);
+    const [opponentCards, setOpponentCards] = useState([]);
+    const [selectedCard, setSelectedCard] = useState(null);
 
-        opponentCards: [],
-        setOpponentCards: (cards) => updateProperty('opponentCards', cards),
-
-        selectedCard: null,
-        setSelectedCard: (card) => updateProperty('selectedCard', card),
-    });
-
-    const updateProperty = (key, valueOrCallback) => {
-        let value = valueOrCallback;
-        if (typeof valueOrCallback === 'function') value = valueOrCallback(gameContextValue[key]);
-        setGameContextValue(prevState => ({...prevState, [key]: value}));
-    };
+    const contextValue = {
+        myCards, setMyCards,
+        opponentCards, setOpponentCards,
+        selectedCard, setSelectedCard
+    }
 
     const match = useRouteMatch();
+    
     return (
-        <GameContext.Provider value={gameContextValue}>
+        <GameContext.Provider value={contextValue}>
             <Switch>
                 <Route path={match.path + '/'} exact component={StartPage}/>
                 <Route path={match.path + '/board'} component={BoardPage}/>
