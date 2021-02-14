@@ -20,7 +20,9 @@ const GamePage = () => {
         setSelectedCard: (card) => updateProperty('selectedCard', card),
     });
 
-    const updateProperty = (key, value) => {
+    const updateProperty = (key, valueOrCallback) => {
+        let value = valueOrCallback;
+        if (typeof valueOrCallback === 'function') value = valueOrCallback(gameContextValue[key]);
         setGameContextValue(prevState => ({...prevState, [key]: value}));
     };
 
