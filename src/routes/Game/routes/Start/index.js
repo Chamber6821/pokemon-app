@@ -28,10 +28,9 @@ const StartPage = () => {
         }, {}));
     };
 
-    useEffect(() => {
-        (async () => {
-            setPokemons(await firebase.getPokemonsOnce());
-        })().then();
+    useEffect(async () => {
+        pokemonsContext.clear();
+        setPokemons(await firebase.getPokemonsOnce());
     }, []);
 
     return (
