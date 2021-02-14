@@ -25,6 +25,8 @@ const GamePage = () => {
         setScore({my: 0, opponent: 0});
     }
 
+    const isWon = () => score.my > score.opponent;
+
     const contextValue = {
         myCards, setMyCards,
         myDeck, setMyDeck,
@@ -34,7 +36,7 @@ const GamePage = () => {
         isGameOver, setGameOver,
         score, setScore,
 
-        clear
+        isWon, clear,
     }
 
     const match = useRouteMatch();

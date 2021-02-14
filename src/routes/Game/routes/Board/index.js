@@ -9,11 +9,12 @@ import PlayerBoard from 'components/PlayerBoard';
 import s from './style.module.css';
 
 
-const countScore = (board, myCards, opponentCards) => {
-    let myScore = myCards.length;
-    let opponentScore = opponentCards.length;
+const countScore = (board, myDeck, opponentDeck) => {
+    console.log(board, myDeck, opponentDeck);
+    let myScore = myDeck.length;
+    let opponentScore = opponentDeck.length;
 
-    board.forEach((card) => {
+    board.forEach(({card}) => {
         if (card.possession === 'blue') myScore++;
         else if (card.possession === 'red') opponentScore++;
         // else *warning/error*
@@ -72,6 +73,7 @@ const BoardPage = () => {
                 console.log('Warning: invalid possession:', selectedCard.possession);
             }
 
+            gameContext.setSelectedCard(null);
             setSteps(steps => steps + 1);
         }
     }
@@ -95,9 +97,11 @@ const BoardPage = () => {
     // Handle game over
     useEffect(() => {
         if (steps >= 9) {
-            const {myScore, opponentScore} = countScore(board, gameContext.myCards, gameContext.opponentCards);
+            const {myScore, opponentScore} = countScore(board, gameContext.myDeck, gameContext.opponentDeck);
+            console.log({myScore, opponentScore});
             gameContext.setScore({my: myScore, opponent: opponentScore});
             gameContext.setGameOver(true);
+            //alert('pause');
             history.replace('/game/finish');
         }
     }, [steps])
