@@ -25,7 +25,7 @@ const PlayerBoard = ({cards}) => {
                     className={cn(s.card, {
                         [s.selected]: selectedCard === item
                     })}
-                    data={item}
+                    data={{...item, possession: null}}
                     minimize={true}
                     onClick={handleClickCard(item)}
                 />)

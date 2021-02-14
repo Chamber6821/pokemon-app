@@ -12,6 +12,7 @@ const BoardPage = () => {
     const [board, setBoard] = useState([]);
     const gameContext = useContext(GameContext);
 
+
     // const history = useHistory();
     // if (Object.keys(pokemons).length === 0) {
     //     history.replace('/game');
@@ -27,10 +28,36 @@ const BoardPage = () => {
         return (await response.json()).data;
     }
 
+    const handleClickPlate = (position) => async () => {
+        const selectedCard = gameContext.selectedCard;
+
+        console.log('position:', position, 'card:', selectedCard);
+
+        if (selectedCard) {
+            const params = {
+                position,
+                card: selectedCard,
+                board
+            }
+
+            const response = await fetch('https://reactmarathon-api.netlify.app/api/players-turn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(params),
+            });
+
+            const newBoard = (await response.json()).data;
+            setBoard(newBoard);
+        }
+    }
+
     useEffect(() => {
         (async () => {
             setBoard(await loadBoard());
-            gameContext.setOpponentCards(await loadOpponentCard());
+            gameContext.setOpponentCards((await loadOpponentCard()).map((item) => ({...item, possession: 'red'})));
+            gameContext.setMyCards(prevState => Array.from(prevState).map((item) => ({...item, possession: 'blue'})));
         })().then();
     }, [])
 
@@ -42,7 +69,11 @@ const BoardPage = () => {
             <div className={s.board}>
                 {
                     board.map(({position, card}) =>
-                        <div className={s.boardPlate} key={position}>
+                        <div
+                            key={position}
+                            className={s.boardPlate}
+                            onClick={handleClickPlate(position)}
+                        >
                             {card && <PokemonCard
                                 data={card}
                                 minimize={true}
