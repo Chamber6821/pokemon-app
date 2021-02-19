@@ -22,6 +22,10 @@ class Firebase {
     getPokemonsOnce = async () => {
         return await this.db.ref('pokemons').once('value').then(snap => snap.val());
     }
+
+    addPokemon = async (pokemon) => {
+        return this.db.ref('pokemons').push(pokemon);
+    }
 }
 
 export default Firebase;
